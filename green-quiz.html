@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Green Score Quiz</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; background: #f6f9f6; }
+  h1 { color: #2e7d32; }
+  .question { margin-bottom: 20px; padding: 10px; background: #ffffff; border-radius: 5px; }
+  button { background-color: #2e7d32; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+  button:hover { background-color: #1b5e20; }
+  .result { margin-top: 30px; padding: 20px; background: #e8f5e9; border-radius: 5px; }
+</style>
+</head>
+<body>
+
+<h1>🌿 Green Score Quiz</h1>
+<p>Answer the questions below to see your Green Score!</p>
+
+<form id="quizForm">
+
+<div id="questionsContainer"></div>
+
+<button type="button" onclick="calculateScore()">Zobacz wynik</button>
+
+</form>
+
+<div id="result" class="result"></div>
+
+<script>
+const questions = [
+"I make effort to buy products with little packaging.",
+"I print documents only when required.",
+"I do separate waste (paper/plastic/bio/etc.) before disposal.",
+"I shut off my computer completely when not in use.",
+"I keep my devices unplugged instead of “standby” mode.",
+"I walk or bike instead of driving.",
+"I take quick shower instead of bath.",
+"I drink tap/filtered water instead of buying bottled water.",
+"When buying home appliances (TV, fridge, washer, etc..) I choose most energy efficient - Class A.",
+"I choose recycled items if possible (e.g. paper).",
+"I run dishwasher only when full.",
+"I try to do only full loads of laundry.",
+"I choose lower temperatures for washing machine.",
+"I iron only essential things.",
+"In winter I try to keep heating thermostat as low as possible.",
+"I try to reduce meat based meals.",
+"I choose local products instead of Far East imports.",
+"I keep car tires inflated to reduce fuel usage.",
+"I drive in eco mode/manner to reduce fuel consumption.",
+"I turn off the water while brushing my teeth.",
+"I bring my own bag to shop.",
+"I turn off the lights at home if not in use.",
+"I choose products with Ecolabel or other eco-certifications.",
+"I buy second-hand or refurbished products instead of new ones.",
+"I try to repair broken items instead of replacing them.",
+"I limit the use of air conditioning or set it to an energy-saving mode.",
+"I freeze meal leftovers to avoid food waste.",
+"I share or borrow tools and equipment instead of buying.",
+"I choose low-energy lighting (e.g., LED bulbs).",
+"I participate in community clean-up or environmental activities.",
+"I avoid using tumble dryers and air-dry washed items."
+];
+
+const options = [
+  { text: "Always", points: 3 },
+  { text: "Often", points: 2 },
+  { text: "Sometimes", points: 1 },
+  { text: "Never", points: 0 }
+];
+
+// Generate questions dynamically
+const container = document.getElementById('questionsContainer');
+questions.forEach((q, idx) => {
+  const div = document.createElement('div');
+  div.className = 'question';
+  const qText = document.createElement('p');
+  qText.innerHTML = `<strong>Question ${idx+1}:</strong> ${q}`;
+  div.appendChild(qText);
+  options.forEach(opt => {
+    const label = document.createElement('label');
+    label.style.display = 'block';
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'q' + idx;
+    radio.value = opt.points;
+    label.appendChild(radio);
+    label.appendChild(document.createTextNode(' ' + opt.text));
+    div.appendChild(label);
+  });
+  container.appendChild(div);
+});
+
+function calculateScore() {
+  let total = 0;
+  for (let i=0; i<questions.length; i++) {
+    const radios = document.getElementsByName('q'+i);
+    let answered = false;
+    for (const r of radios) {
+      if (r.checked) {
+        total += parseInt(r.value);
+        answered = true;
+        break;
+      }
+    }
+    if (!answered) {
+      alert('Please answer all questions before submitting.');
+      return;
+    }
+  }
+
+  let description = "";
+  if (total >=76) {
+    description = "🌍 <strong>Eco Superhero</strong><br>You’re an unstoppable force for good! Captain Planet would be proud.";
+  } else if (total >=55) {
+    description = "🌱 <strong>Green Guru</strong><br>You walk the talk – your green habits inspire everyone.";
+  } else if (total >=35) {
+    description = "🍀 <strong>Sustainable Explorer</strong><br>You’re well on your way to an eco-friendly lifestyle.";
+  } else if (total >=15) {
+    description = "🌾 <strong>Occasional Recycler</strong><br>You dabble in green habits – keep going!";
+  } else {
+    description = "🌱 <strong>Eco Starter</strong><br>Every hero starts somewhere. Small changes make a big impact.";
+  }
+
+  document.getElementById('result').innerHTML = 
+    `<h2>Your Score: ${total}/93</h2><p>${description}</p>`;
+}
+</script>
+
+</body>
+</html>
