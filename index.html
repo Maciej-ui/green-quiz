@@ -133,4 +133,24 @@ function calculateScore() {
 
   let description = "";
   if (total >=76) {
-    description = "🦸‍♂️ <strong>Master Vampire Slayer</strong><br>You’re an unstoppable force against the Eco Vampires! Your cape is wo
+    description = "🦸‍♂️ <strong>Master Vampire Slayer</strong><br>You’re an unstoppable force against the Eco Vampires! Your cape is woven from recycled PET bottles, your gadgets run on solar, and you stake every standby vampire before it even blinks. Keep inspiring everyone around you—Captain Planet is jealous.";
+  } else if (total >=55) {
+    description = "🌱 <strong>Green Guardian</strong><br>You walk the talk—standby vampires flee when you enter the room. You bring your own bag, your own bottle, and maybe even your own wooden stake. Your eco-habits are strong, but there are still a few lurking vampires to hunt down.";
+  } else if (total >=35) {
+    description = "🍀 <strong>Resourceful Hunter</strong><br>You’ve begun your quest to defeat the Eco Vampires—and you’ve already vanquished many. Your lights don’t stay on for long, and your printer fears your judgment. Keep going—every small victory pushes back the darkness.";
+  } else if (total >=15) {
+    description = "🌾 <strong>Occasional Vampire Bait</strong><br>Sometimes you catch the vampires red-handed, sometimes you accidentally feed them. They love inconsistency—and you’re almost ready to stop inviting them in. Sharpen your stakes, practice your eco-skills, and you’ll soon have them on the run.";
+  } else {
+    description = "💤 <strong>Vampire’s Best Friend</strong><br>You’ve been snoozing while the Eco Vampires throw a party with your resources. The standby vampire naps on your monitor, the paper vampire lounges by your printer, and the water vampire is doing cannonballs in your sink. But every hero starts somewhere—today is the perfect day to pick up your stake and join the fight!";
+  }
+
+  document.getElementById('quizForm').style.display = 'none';
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = 
+    `<h2>Your Score: ${total}/93</h2><p>${description}</p>`;
+}
+</script>
+
+</body>
+</html>
